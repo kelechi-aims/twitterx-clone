@@ -1,0 +1,85 @@
+<div class="bg-black px-2 py-2">
+    <!-- header section -->
+    <form action="" class="bg-[#858585] p-3 mb-8 rounded-full flex items-center gap-2 pl-6">
+        <span class="material-symbols-outlined text-[#71767b]">search</span>
+        <input type="text" placeholder="Search" class="bg-[#858585] placeholder-[#71767b] focus:outline-none">
+    </form>
+
+    <!-- subcribe section -->
+    <div class="border border-[#273336] text-base rounded-xl px-4 py-3 mb-3">
+        <h3 class="text-white font-extrabold text-lg">Subcribe to Premium</h3>
+        <p class="text-[#e7e9ea] ">Sunsrcibe to unlock new features and if eligible, receive a share of revenue.</p>
+        <button class="bg-[#1d9bf0] px-4 font-bold text-center rounded-full text-white py-1 mt-3">Subscribe</button>
+    </div>
+
+    <!-- live on X section -->
+    <div class="border border-[#273336] text-base rounded-xl px-4 py-3 mb-3">
+        <h3 class="text-xl font-extrabold text-[#e7e9ea]">Live on X</h3>
+        <div *ngFor="let live of liveOnX">
+            <div class="flex gap-1">
+                <img [src]="live.avatar" alt="profile picture" class="w-[20px] h-[20px] rounded-full">
+                <span class="text-sm font-bold text-white">{{live.host}}</span>
+                <span class="material-symbols-outlined text-[#1d9bf0]">verified</span>
+                <span class="text-sm text-[#71767b]">is hosting</span>
+            </div>
+            <div class="flex justify-between ">
+                <h4 class="text-base font-bold text-[#e7e9ea]">{{live.title}}</h4>
+                <div class="border-2 bg-black border-[#f91880] flex items-center p-1">
+                    <img [src]="live.avatar" alt="profile picture" class="w-[30px] h-[30px]">
+                    <span class="text-[#e7e9ea] text-sm font-bold">{{live.audience}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- what is happening section -->
+    <div class="border border-[#273336] text-base rounded-xl px-4 py-3 mb-3">
+        <h3 class="text-xl font-extrabold text-[#e7e9ea]">What's happening</h3>
+        <div class="flex gap-3 items-center">
+            <img src="/img/illusion.jpg" alt="picture" class="w-[70px] h-[70px] rounded-xl">
+            <div class="text-base">
+                <h4 class="font-bold text-[#e7e9ea]">Kings World Cup Nations</h4>
+                <p class="text-[#71767b]">Live</p>
+            </div>
+        </div>
+        <div *ngFor="let trend of trends" class="flex justify-between items-center">
+            <div class="py-3">
+                <h6 class="text-[#273336] text-sm">Trending in Nigeria</h6>
+                <h4 class="text-[#e7e9ea] text-base font-bold">{{trend.title}}</h4>
+                <p class="text-[#273336] text-sm">{{trend.posts}}</p>
+            </div>
+            <div class="text-[#273336] text-base">
+                <span class="material-symbols-outlined">more_horiz</span>
+            </div>
+        </div>
+    </div >
+
+    <!-- who to follow section  -->
+    <div class="border border-[#273336] text-base rounded-xl px-4 py-3 mb-3">
+        <h3 class="text-xl font-extrabold text-[#e7e9ea]">Who to follow</h3>
+        <div *ngFor="let who of whoToFollow" class="py-3 flex justify-between items-center">
+            <div class="flex gap-2">
+                <img [src]="who.avatar" alt="profile picture" class="w-10 h-10 rounded-full">
+                <div class="text-base">
+                    <h4 class="font-bold text-[#e7e9ea]">{{who.name}} <span class="material-symbols-outlined text-blue-600">verified</span></h4>
+                    <p class="text-[#71767b]">{{who.handle}}</p>
+                </div>
+            </div>
+            <button class="bg-[#eff3f4] text-[#0f1419] text-sm font-bold text-center px-4 py-2 rounded-3xl">Follow</button>
+
+        </div>
+        <a href="#" class="text-[#1d9bf0] text-base p-4">Show more</a>       
+
+    </div>
+
+    <!-- footer section  -->
+    <footer class="text-[#71767b] text-sm flex flex-wrap p-4 gap-3">
+        <p>Terms of Service</p> 
+        <p>Privacy Policy</p>
+        <p>Cookie Policy</p>
+        <p>Accessibilty</p>
+        <p>Ads info</p>
+        <p class="flex items-center">More <span class="material-symbols-outlined items-center">more_horiz</span></p>
+        <p>© 2025 X Corp.</p>
+    </footer>
+</div>

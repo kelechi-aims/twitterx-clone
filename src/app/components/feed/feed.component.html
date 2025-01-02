@@ -1,0 +1,45 @@
+<div class="flex-1 p-4 pt-0 overflow-y-auto bg-black">
+    <div class="border border-t-0 grid grid-cols-2">
+        <div class="hover:bg-[#787A79] flex justify-center">
+            <div class="py-4 border-b-4 border-[#1d9bf0] ">
+                <span class="text-[#E5E7E6] text-base font-bold">For you</span>
+            </div>
+        </div>
+        <div class="hover:bg-[#787A79] flex justify-center">
+            <div class="py-4">
+                <span class="text-[#6E6F71] text-base">Following</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-8 border border-t-0 px-4">
+        <div class="flex gap-3 items-center">
+            <img src="/img/kacey.jpg" alt="profile-picture" class="h-10 w-10 rounded-full">
+            <p class="text-xl text-[#6E6F71]">what is happening?!</p>
+        </div>
+
+        <div class="flex pl-12 mt-6 justify-between items-center mb-2">
+            <div class="flex w-1/2 justify-between items-center text-[#1d9bf0]">
+                <div class="material-symbols-outlined">image</div>
+                <div class="material-symbols-outlined">gif_box</div>
+                <div class="material-symbols-outlined">crop_square</div>
+                <div class="material-symbols-outlined">ballot</div>
+                <div class="material-icons">mood</div>
+                <div class="material-symbols-outlined">calendar_clock</div>
+                <div class="material-symbols-outlined">explore_nearby</div>
+
+
+            </div>
+            <div class="flex justify-center items-center">
+                <button class="bg-[#787A79] text-[#0A0E11] rounded-full font-bold text-base px-4 py-2 mt-3">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-4 border border-t-0 text-[#1d9bf0] text-balance flex justify-center items-center"><p>Show 506 posts</p></div>
+
+    <div class="px-4 border border-t-0">
+        <app-post *ngFor="let post of posts" [post]="post"></app-post>
+    </div>
+
+</div>

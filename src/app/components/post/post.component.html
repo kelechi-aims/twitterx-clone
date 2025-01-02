@@ -1,0 +1,70 @@
+<div class="py-4 grid grid-cols-[10%_90%]">
+    <div class="">
+        <img [src]="post.avatar" alt="profile-picture of {{post.username}}" class="h-10 w-10 rounded-full">
+    </div>
+    
+    <div>
+        <div class="flex justify-between">
+            <div class="text-base flex justify-between gap-1 items-center">
+                <h5 class="text-[#E5E7E6] font-bold">{{ post.username }}</h5>
+                <div *ngIf="post.isVerified"><span class="material-symbols-outlined text-[#1d9bf0]" >new_releases</span></div>
+                <span class="text-[#6E6F71]">{{ post.handle }}</span>
+                <span class="text-[#6E6F71]">.</span>
+                <span class="text-[#6E6F71]">{{post.timestamp | twitterTime }}</span>
+            </div>
+            <div>
+                <span class="material-symbols-outlined text-[#6E6F71]">more_horiz</span>
+            </div>
+        </div>
+
+        <div class="mt-1">
+            <div>
+                <p class="text-[#E5E7E6] text-base">{{post.content}}</p>
+            </div>
+    
+            <div *ngFor="let url of post.mediaUrls">
+                <img 
+                    *ngIf="isImage(url)"
+                    [src]="url" 
+                    alt="Post Media"
+                    class="border rounded-[8px]"
+                    (error)="handleImageError($event)"
+                >
+                <video 
+                    *ngIf="isVideo(url)"
+                    [src]="url"
+                    controls
+                    class="border rounded-[8px]"
+                ></video>
+            </div>
+        </div>
+
+        <div class="text-[#6E6F71] flex justify-between pt-4">
+            <div class="flex gap-1 hover:text-blue-500">
+                <fa-icon [icon]="faComment" class="text-xl"></fa-icon>
+                <span class="text-sm">{{post.comments}}</span>
+            </div>
+            <div class="flex gap-1 hover:text-green-500 ">
+                <fa-icon [icon]="faRetweet" class="text-xl"></fa-icon>
+                <span class="text-sm">{{post.retweets}}</span>
+            </div>
+            <div class="flex gap-1 hover:text-pink-500 ">
+                <span class="material-symbols-outlined">favorite</span>
+                <span class="text-sm">{{post.likes}}</span>
+            </div>
+            <div class="flex gap-1 hover:text-blue-500">
+                <span class="material-symbols-outlined">bar_chart</span>
+                <span class="text-sm">{{post.views}}</span>
+            </div>
+            <div class="flex gap-2 hover:text-blue-500">
+                <div class="flex gap-1 hover:text-blue-500">
+                    <span class="material-symbols-outlined">bookmark</span>
+                    <span class="text-sm">{{post.bookmarks}}</span>
+                </div>
+                <div>
+                    <span class="material-symbols-outlined">share</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
