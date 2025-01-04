@@ -1,9 +1,46 @@
-<div class="flex">
-  <div class="container mx-auto flex">
-    <app-navbar class="w-1/4 h-screen"></app-navbar>
-    <app-feed class="w-2/4"></app-feed>
-    <app-sidebar class="w-1/4"></app-sidebar>
+<div class="bg-black ">
+  <div class="container flex flex-col  bg-black mx-auto 
+    md:flex-row md:px-0
+    ">
+    <app-navbar class="w-full h-[48px] px-2 
+      md:w-[10%] xl:w-[20%] md:h-screen md:sticky md:top-0
+      "></app-navbar>
+
+    <!-- main comprising of the feed and sidebar -->
+    <div class="w-full flex-grow flex flex-col md:flex-row md:w-[80%]">
+      <app-feed class="w-full md:w-full md:mr-4 lg:w-[60%]"></app-feed>
+      <app-sidebar class="hidden lg:block w-[40%]"></app-sidebar>
+    </div>
+
+    <!-- Sticky footer -->
+    <div class="w-full border border-r-0 border-l-0 border-b-0 h-[50px] flex justify-between items-center md:hidden fixed bottom-0 left-0 text-white backdrop-blur-[53px] ">
+      <a href="#" class="flex items-center space-x-4 w-fit rounded-full px-4 py-2 hover:bg-gray-600 ">
+          <span class="material-symbols-outlined text-xl">home</span>
+      </a>
+    
+      <a href="#" class="flex items-center space-x-4 w-fit rounded-full px-4 py-2 hover:bg-gray-600 ">
+          <span class="material-icons text-xl">search</span>
+      </a>
+    
+      <a href="#" class="flex items-center space-x-4 w-fit rounded-full px-4 py-2 hover:bg-gray-600 ">
+          <span class="material-symbols-outlined text-xl">notifications</span>
+      </a>
+    
+      <a href="#" class="flex items-center space-x-4 w-fit rounded-full px-4 py-2 hover:bg-gray-600 ">
+          <span class="material-symbols-outlined text-xl">mail</span>
+      </a>
+    
+      <a href="#" class="flex items-center space-x-4 w-fit rounded-full px-4 py-2 hover:bg-gray-600 ">
+          <span class="material-symbols-outlined text-xl">crop_square</span>
+      </a>
+    
+      <a href="#" class="flex items-center space-x-4 w-fit rounded-full px-4 py-2 hover:bg-gray-600 ">
+          <span class="material-symbols-outlined text-xl">group</span>
+      </a>  
+    </div>
   </div>
+
+  
 </div>
 
 <router-outlet />

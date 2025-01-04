@@ -1,20 +1,20 @@
-<div class="flex-1 p-4 pt-0 overflow-y-auto bg-black">
-    <div class="border border-t-0 grid grid-cols-2">
+<div class="flex-1 md:p-4 pt-0">
+    <div class="border border-r-0 border-t-0 border-l-0 md:border-r md:border-l md:backdrop-blur-[53px] grid grid-cols-2 md:top-0 md:sticky">
         <div class="hover:bg-[#787A79] flex justify-center">
             <div class="py-4 border-b-4 border-[#1d9bf0] ">
-                <span class="text-[#E5E7E6] text-base font-bold">For you</span>
+                <span class="text-[#E5E7E6] text-sm md:text-base font-bold">For you</span>
             </div>
         </div>
         <div class="hover:bg-[#787A79] flex justify-center">
             <div class="py-4">
-                <span class="text-[#6E6F71] text-base">Following</span>
+                <span class="text-[#6E6F71] text-sm md:text-base">Following</span>
             </div>
         </div>
     </div>
 
-    <div class="pt-8 border border-t-0 px-4">
+    <div class="hidden md:flex md:flex-col md:pt-8 md:border md:border-t-0 px-4">
         <div class="flex gap-3 items-center">
-            <img src="/img/kacey.jpg" alt="profile-picture" class="h-10 w-10 rounded-full">
+            <img src="/img/noavatar.png" alt="profile-picture" class="h-10 w-10 rounded-full">
             <p class="text-xl text-[#6E6F71]">what is happening?!</p>
         </div>
 
@@ -36,10 +36,10 @@
         </div>
     </div>
 
-    <div class="py-4 border border-t-0 text-[#1d9bf0] text-balance flex justify-center items-center"><p>Show 506 posts</p></div>
+    <div class="py-4 border border-r-0 border-t-0 border-l-0 md:border-r md:border-l text-[#1d9bf0] text-sm md:text-base flex justify-center items-center"><p>Show {{ postCount }} posts</p></div>
 
-    <div class="px-4 border border-t-0">
-        <app-post *ngFor="let post of posts" [post]="post"></app-post>
+    <div class="px-4 border border-r-0 border-t-0 border-l-0 md:border-r md:border-l">
+        <app-post *ngFor="let item of posts" [postDetails]="item"></app-post>
     </div>
 
 </div>

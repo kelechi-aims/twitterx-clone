@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PostComponent } from '../post/post.component';
-import { Post } from '../../models/post.model';
+import { Post, User, Comment, PostDetails } from '../../models/post.model';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
+// import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-feed',
@@ -11,156 +13,41 @@ import { CommonModule } from '@angular/common';
   styleUrl: './feed.component.css'
 })
 export class FeedComponent {
-  posts: Post[] = [
-    {
-      id: '1',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'John Doe',
-      handle: '@johndoe',
-      content: 'This is my first post on TwitterX!',
-      mediaUrls: ['https://via.placeholder.com/500'],
-      isVerified: true,
-      likes: 120,
-      retweets: 30,
-      comments: 25,
-      timestamp: new Date('2023-12-01T10:00:00Z'),
-      views: 300,
-      bookmarks: 15,
-    },
-    {
-      id: '2',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Jane Smith',
-      handle: '@janesmith',
-      content: 'Loving this new TwitterX clone! 🚀',
-      mediaUrls: ['https://www.w3schools.com/html/mov_bbb.mp4'],
-      isVerified: false,
-      likes: 90,
-      retweets: 20,
-      comments: 10,
-      timestamp: new Date('2023-12-02T12:30:00Z'),
-      views: 250,
-      bookmarks: 8,
-    },
-    {
-      id: '3',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Tech Enthusiast',
-      handle: '@techguru',
-      content: 'Here’s a sneak peek of my latest project. Let me know what you think!',
-      mediaUrls: [''],
-      isVerified: true,
-      likes: 200,
-      retweets: 50,
-      comments: 40,
-      timestamp: new Date('2023-12-03T08:45:00Z'),
-      views: 600,
-      bookmarks: 22,
-    },
-    {
-      id: '4',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Nature Lover',
-      handle: '@naturefreak',
-      content: 'Captured this beautiful sunset 🌅',
-      mediaUrls: [''],
-      isVerified: false,
-      likes: 300,
-      retweets: 80,
-      comments: 60,
-      timestamp: new Date('2023-12-03T19:20:00Z'),
-      views: 900,
-      bookmarks: 35,
-    },
-    {
-      id: '5',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Movie Buff',
-      handle: '@moviemaster',
-      content: 'Check out this movie trailer! 🎥',
-      mediaUrls: ['https://www.w3schools.com/html/movie.mp4'],
-      isVerified: true,
-      likes: 400,
-      retweets: 150,
-      comments: 90,
-      timestamp: new Date('2023-12-04T15:10:00Z'),
-      views: 1200,
-      bookmarks: 50,
-    },
-    {
-      id: '6',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Foodie',
-      handle: '@foodlover',
-      content: 'Tried out this amazing recipe today 🍜',
-      mediaUrls: [''],
-      isVerified: false,
-      likes: 250,
-      retweets: 60,
-      comments: 30,
-      timestamp: new Date('2023-12-05T11:30:00Z'),
-      views: 750,
-      bookmarks: 20,
-    },
-    {
-      id: '7',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Travel Blogger',
-      handle: '@wanderlust',
-      content: 'Exploring the mountains today! 🏔️',
-      mediaUrls: [''],
-      isVerified: true,
-      likes: 500,
-      retweets: 200,
-      comments: 110,
-      timestamp: new Date('2023-12-05T17:45:00Z'),
-      views: 1500,
-      bookmarks: 80,
-    },
-    {
-      id: '8',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Fitness Fanatic',
-      handle: '@fitlife',
-      content: 'Crushed my workout today 💪',
-      mediaUrls: ['https://www.w3schools.com/html/mov_bbb.mp4'],
-      isVerified: false,
-      likes: 180,
-      retweets: 40,
-      comments: 15,
-      timestamp: new Date('2023-12-06T07:00:00Z'),
-      views: 400,
-      bookmarks: 10,
-    },
-    {
-      id: '9',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Bookworm',
-      handle: '@readersdelight',
-      content: 'Currently reading an amazing book 📚',
-      mediaUrls: ['https://via.placeholder.com/400x600', '/img/kacey.jpg'],
-      isVerified: false,
-      likes: 220,
-      retweets: 70,
-      comments: 50,
-      timestamp: new Date('2023-12-06T20:15:00Z'),
-      views: 950,
-      bookmarks: 28,
-    },
-    {
-      id: '10',
-      avatar: 'https://via.placeholder.com/50',
-      username: 'Music Lover',
-      handle: '@melodyfan',
-      content: 'Can’t stop listening to this track 🎵',
-      mediaUrls: ['https://via.placeholder.com/audio.mp3'],
-      isVerified: true,
-      likes: 320,
-      retweets: 100,
-      comments: 60,
-      timestamp: new Date('2023-12-07T13:50:00Z'),
-      views: 1300,
-      bookmarks: 45,
+  posts: PostDetails[] = [];
+
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.apiService.getPosts().subscribe(
+      (posts: Post[]) => {
+        // Initialize the posts array with empty objects
+        this.posts = posts.map((post) => ({ post }));
+
+        // Fetch user and comments for each post
+        this.posts.forEach((item, index) => {
+          // Fetch user
+          const post: Post = item.post;
+          this.apiService.getUser(post.userId).subscribe(
+            (user: User) => {
+              this.posts[index].user = user;
+            }
+          );
+
+          // Fetch comments
+          
+          this.apiService.getComments(post.id).subscribe(
+            (comments: Comment[]) => {
+              this.posts[index].comments = comments;
+            },
+          );
+        });
+      
     }
-  ]
+  );
+  }
+
+  get postCount(): number {
+    return this.posts.length;
+  }
 }
